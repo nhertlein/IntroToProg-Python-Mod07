@@ -23,4 +23,45 @@ strFileName = 'ArnieQuotes.txt' # File
 dicRow = {}  # row to load into list
 lstArnie = []  # place to save the quotes
 ```
-#### Listing 1. Declaration of variables
+##### Listing 1. Declaration of variables
+
+The next section of the script was my example using the pickling function to save data in a binary format. For the example to work, we need to load in some data so I chose to load it in from a \*.txt file so I could compare with the \*.dat file output later. I used similar code to what we have used in the past to load in lines of data from a file, split it into categories, save it as a dictionary row, and then append to a list for reference (Listing 2). As mentioned previously for some reason I decided to load in cheesy one liner quotes from Arnold Schwarzenegger movies.
+```
+# ------------ Pickling example ------------ #
+objFile = open(strFileName, "r")
+
+for line in objFile:
+    movie, quote = line.split(",")
+    dicRow = {"Movie": movie.strip(), "Quote": quote.strip()}
+    lstArnie.append(dicRow)
+
+objFile.close()
+```
+##### Listing 2. Load in movie quotes from \*.txt file
+
+Once the data was loaded into the script, it was a natural next step to display the contents to the user. The script pauses for the user to press enter to move to the next stage of the script, which is pickling the data just loaded in (Listing 3).
+```
+# Display the list
+print("\n******* Arnie Quotes From .txt **********")
+
+for line in lstArnie:
+    print(line["Movie"] + ", \"" + line["Quote"] + "\"")
+
+input("\nPress ENTER to pickle!")
+```
+##### Listing 3. Display data that was loaded in from the file and pause for user input
+
+After the user hits enter, the script continues and the data is pickled. The first step in the pickling process is to create a file object we will want to save to. I used the “wb” option to open a file in the binary format and ensure that if data was already present in the file it would be replaced by the new content. Data is then saved to the file using the dump method of the pickle module. The file is then closed to prevent data leaks and the user is notified the operation was successful. The script pauses for the user to press enter to move to the next stage of the script, which is unpickling the data (Listing 4). The data saved into the \*.dat file format is not as easily human readable (Figure 1).
+```
+# pickle it! Smells like vinegar...
+objFile = open('ArnieQuotes.dat', 'wb')
+pickle.dump(lstArnie, objFile)
+objFile.close()
+print("\nSuccessfully pickled.")
+
+input("\nPress ENTER to unpickle")
+```
+##### Listing 4. Pickle data into \*.dat binary file format
+
+
+##### Figure 1. Data saved into \*.dat binary file format
