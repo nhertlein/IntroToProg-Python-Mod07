@@ -1,1 +1,3 @@
-# IntroToProg-Python-Mod07
+# Files & Exceptions
+**Dev:** *NHertlein*
+**Date:** *March 07, 2021*
